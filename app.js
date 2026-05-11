@@ -28,20 +28,21 @@ app.post("/recetas", (req, res) => {
         dificultad,
         ingredientes,
         pasos,
-        publicada
+        publicada,
+        porciones
     } = req.body;
 
     const sql = `
         INSERT INTO recetas_cocina
-        (nombre, categoria, tiempo_preparacion_min, dificultad, ingredientes, pasos, publicada)
-        VALUES (?, ?, ?, ?, ?, ?, ?)
+        (nombre, categoria, tiempo_preparacion_min, dificultad, ingredientes, pasos, publicada, porciones)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
     `;
 
     db.query(sql, [
         nombre,
         categoria,
         tiempo_preparacion_min,
-        dificultad,
+        dificultad, 
         ingredientes,
         pasos,
         publicada
@@ -90,7 +91,8 @@ app.put("/recetas/:id", (req, res) => {
         dificultad,
         ingredientes,
         pasos,
-        publicada
+        publicada,
+        porciones
     } = req.body;
 
     const sql = `
@@ -103,6 +105,7 @@ app.put("/recetas/:id", (req, res) => {
         ingredientes = ?,
         pasos = ?,
         publicada = ?
+        porciones = ?,
         WHERE id = ?
     `;
 
@@ -173,15 +176,14 @@ app.post("/vehiculos", (req, res) => {
         marca,
         modelo,
         anio,
-        kilometraje,
         estado,
         asegurado
     } = req.body;
 
     const sql = `
         INSERT INTO vehiculos_flotilla
-        (placa, marca, modelo, anio, kilometraje, estado, asegurado)
-        VALUES (?, ?, ?, ?, ?, ?, ?)
+        (placa, marca, modelo, anio, estado, asegurado)
+        VALUES (?, ?, ?, ?, ?, ?)
     `;
 
     db.query(sql, [
@@ -189,19 +191,13 @@ app.post("/vehiculos", (req, res) => {
         marca,
         modelo,
         anio,
-        kilometraje,
         estado,
         asegurado
     ], (err, result) => {
 
-        if (err) {
-            return res.send(err);
-        }
+        if (err) return res.send(err);
 
-        res.json({
-            mensaje: "Vehiculo creado"
-        });
-
+        res.json({ mensaje: "Vehiculo creado" });
     });
 
 });
@@ -234,7 +230,6 @@ app.put("/vehiculos/:id", (req, res) => {
         marca,
         modelo,
         anio,
-        kilometraje,
         estado,
         asegurado
     } = req.body;
@@ -246,7 +241,6 @@ app.put("/vehiculos/:id", (req, res) => {
         marca = ?,
         modelo = ?,
         anio = ?,
-        kilometraje = ?,
         estado = ?,
         asegurado = ?
         WHERE id = ?
@@ -257,20 +251,14 @@ app.put("/vehiculos/:id", (req, res) => {
         marca,
         modelo,
         anio,
-        kilometraje,
         estado,
         asegurado,
         id
     ], (err, result) => {
 
-        if (err) {
-            return res.send(err);
-        }
+        if (err) return res.send(err);
 
-        res.json({
-            mensaje: "Vehiculo actualizado"
-        });
-
+        res.json({ mensaje: "Vehiculo actualizado" });
     });
 
 });

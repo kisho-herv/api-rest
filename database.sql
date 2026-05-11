@@ -13,6 +13,9 @@ CREATE TABLE recetas_cocina (
     publicada BOOLEAN
 );
 
+ALTER TABLE recetas_cocina
+ADD porciones SMALLINT NOT NULL DEFAULT 4;
+
 CREATE TABLE vehiculos_flotilla (
     id INT AUTO_INCREMENT PRIMARY KEY,
     placa VARCHAR(20),
@@ -23,3 +26,6 @@ CREATE TABLE vehiculos_flotilla (
     estado VARCHAR(30),
     asegurado BOOLEAN
 );
+
+ALTER TABLE vehiculos_flotilla
+DROP COLUMN kilometraje;
